@@ -30,7 +30,7 @@
         }
 
         .logo img {
-            height: 40px; /* Adjust the height as needed */
+            height: 40px;
             width: auto;
         }
 
@@ -159,6 +159,7 @@
             justify-content: center;
             gap: 20px;
             margin-top: 30px;
+            flex-wrap: wrap;
         }
 
         .artist-button {
@@ -195,6 +196,98 @@
         .artist-button:hover::before {
             left: 100%;
         }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            header {
+                padding: 15px 20px;
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
+            }
+
+            .logo img {
+                height: 30px;
+            }
+
+            nav a {
+                margin-left: 10px;
+                font-size: 0.9rem;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+                letter-spacing: 3px;
+            }
+
+            .image-grid {
+                gap: 10px;
+                padding: 20px;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .image-card {
+                width: 150px;
+                height: 225px;
+            }
+
+            .content {
+                padding: 60px 20px;
+            }
+
+            .content h2 {
+                font-size: 2rem;
+            }
+
+            .content p {
+                font-size: 1rem;
+            }
+
+            .artist-buttons {
+                gap: 10px;
+            }
+
+            .artist-button {
+                font-size: 0.9rem;
+                padding: 8px 15px;
+            }
+
+            .footer {
+                right: 20px;
+                font-size: 0.8rem;
+                text-align: right;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .image-card {
+                width: 120px;
+                height: 180px;
+            }
+
+            nav a {
+                font-size: 0.8rem;
+                margin-left: 8px;
+            }
+
+            .content h2 {
+                font-size: 1.5rem;
+            }
+
+            .content p {
+                font-size: 0.9rem;
+            }
+
+            .artist-button {
+                font-size: 0.8rem;
+                padding: 6px 12px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -213,10 +306,10 @@
         <h1>Blade Records</h1>
         <div class="image-grid">
             <div class="image-card">
-                <img src="https://lh3.googleusercontent.com/RtdPpzVs1ZMwFT1UzD3G-c9lIpM6GmFwJX_bD9OpIgAOZHr0TnNmz4WzKIse3tOaYmj3c4ldxq5TVRl1uZ3TeMPIEDPW64woR_FkZUfd89L24gUyRPQ1OQlL5P5Ij2jLkQ=w1280" alt="SOULYOUMADETHIS">
+                <img src="https://lh3.googleusercontent.com/Ravm-1FYuGgPYOYw4BINildY70MdBsvqtum56IKehR2CKbxWlE8oCerueXxR878gtAwbBWMDY0Ql0OyUI4-UhJpgSRuaWOPpwzZ7nXpEfUCXyPih5a-xae-RiPeI2i0rhA=w1280" alt="SOULYOUMADETHIS">
             </div>
             <div class="image-card">
-                <img src="https://lh3.googleusercontent.com/o2LD3tS8kQcWFuiI0obwXxGHcQLH1kgVm9jTPJkRk9wIr5309OtiCz2UASENixR9rakVK47GaYsxXu8GXYBJo1VpfDVXhm0N0_Ki4XaaX435BcCBBgFaynI0BpP1AWNZeg=w1280" alt="DISCIPLE">
+                <img src="https://lh5.googleusercontent.com/k27iM968n-YWzZ8qmXu8WKNF063IMfY9QzzMS3DsWASntVnCbM0iF25sh9wcols6MrXKbpPMrO1SfqcHJAwxGaQIwzwErpRg56ZpyaiA7sfWqstlYI6JIHrak3RteeF9cw=w1280" alt="DISCIPLE">
             </div>
             <div class="image-card">
                 <img src="https://i.pinimg.com/736x/e1/22/5e/e1225eb92aa9cbc7507da8a436209963.jpg" alt="VETEMENTS">
@@ -236,9 +329,12 @@
 
     <section id="contact" class="content">
         <h2>Contact Us</h2>
-        <p>Got questions? Want to collaborate? Reach out to Blade Records at bladerecords.inquiries@gmail.com.</p>
+        <p>Got questions? Want to collaborate? Reach out to Blade Records at info@bladerecords.com.</p>
     </section>
 
+    <div class="footer">
+       2025 Blade Records 
+    </div>
 
     <script>
         // Smooth scroll for navigation links
@@ -248,7 +344,7 @@
                 const targetId = this.getAttribute('href').substring(1);
                 const targetSection = document.getElementById(targetId);
                 window.scrollTo({
-                    top: targetSection.offsetTop - 80, // Adjust for header height
+                    top: targetSection.offsetTop - 80,
                     behavior: 'smooth'
                 });
             });
