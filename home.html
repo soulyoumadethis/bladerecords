@@ -84,6 +84,7 @@
             transform: rotate(-5deg);
             transition: transform 0.5s ease, box-shadow 0.3s ease;
             overflow: hidden;
+            cursor: pointer;
         }
 
         .image-card:nth-child(even) {
@@ -154,7 +155,7 @@
             margin: 0 auto;
         }
 
-        .artist-buttons {
+        .artist-buttons, .producer-buttons {
             display: flex;
             justify-content: center;
             gap: 20px;
@@ -162,7 +163,7 @@
             flex-wrap: wrap;
         }
 
-        .artist-button {
+        .artist-button, .producer-button {
             padding: 10px 20px;
             background: #222;
             border: 1px solid #ff4d4d;
@@ -176,13 +177,13 @@
             overflow: hidden;
         }
 
-        .artist-button:hover {
+        .artist-button:hover, .producer-button:hover {
             background: #ff4d4d;
             color: #0a0a0a;
             box-shadow: 0 0 15px rgba(255, 77, 77, 0.5);
         }
 
-        .artist-button::before {
+        .artist-button::before, .producer-button::before {
             content: '';
             position: absolute;
             top: 0;
@@ -193,8 +194,64 @@
             transition: left 0.5s ease;
         }
 
-        .artist-button:hover::before {
+        .artist-button:hover::before, .producer-button:hover::before {
             left: 100%;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 20;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: #222;
+            padding: 30px;
+            max-width: 500px;
+            width: 90%;
+            border: 1px solid #ff4d4d;
+            border-radius: 5px;
+            position: relative;
+            animation: modalFadeIn 0.5s ease;
+        }
+
+        @keyframes modalFadeIn {
+            0% { opacity: 0; transform: scale(0.9); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        .modal-content h3 {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            color: #ff4d4d;
+        }
+
+        .modal-content p {
+            font-size: 1rem;
+            color: #ccc;
+            line-height: 1.5;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 1.5rem;
+            color: #fff;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .close-btn:hover {
+            color: #ff4d4d;
         }
 
         /* Mobile Responsiveness */
@@ -244,11 +301,11 @@
                 font-size: 1rem;
             }
 
-            .artist-buttons {
+            .artist-buttons, .producer-buttons {
                 gap: 10px;
             }
 
-            .artist-button {
+            .artist-button, .producer-button {
                 font-size: 0.9rem;
                 padding: 8px 15px;
             }
@@ -257,6 +314,18 @@
                 right: 20px;
                 font-size: 0.8rem;
                 text-align: right;
+            }
+
+            .modal-content {
+                padding: 20px;
+            }
+
+            .modal-content h3 {
+                font-size: 1.5rem;
+            }
+
+            .modal-content p {
+                font-size: 0.9rem;
             }
         }
 
@@ -283,9 +352,17 @@
                 font-size: 0.9rem;
             }
 
-            .artist-button {
+            .artist-button, .producer-button {
                 font-size: 0.8rem;
                 padding: 6px 12px;
+            }
+
+            .modal-content h3 {
+                font-size: 1.2rem;
+            }
+
+            .modal-content p {
+                font-size: 0.8rem;
             }
         }
     </style>
@@ -298,6 +375,7 @@
         <nav>
             <a href="#home">Home</a>
             <a href="#artists">Artists</a>
+            <a href="#producers">Producers</a>
             <a href="#contact">Contact</a>
         </nav>
     </header>
@@ -305,14 +383,14 @@
     <section id="home" class="hero">
         <h1>Blade Records</h1>
         <div class="image-grid">
-            <div class="image-card">
-                <img src="https://lh3.googleusercontent.com/Ravm-1FYuGgPYOYw4BINildY70MdBsvqtum56IKehR2CKbxWlE8oCerueXxR878gtAwbBWMDY0Ql0OyUI4-UhJpgSRuaWOPpwzZ7nXpEfUCXyPih5a-xae-RiPeI2i0rhA=w1280" alt="SOULYOUMADETHIS">
+            <div class="image-card" data-artist="soulyoumadethis">
+                <img src="https://i.pinimg.com/736x/e1/22/5e/e1225eb92aa9cbc7507da8a436209963.jpg" alt="SOULYOUMADETHIS">
             </div>
-            <div class="image-card">
+            <div class="image-card" data-artist="disciple">
                 <img src="https://lh5.googleusercontent.com/k27iM968n-YWzZ8qmXu8WKNF063IMfY9QzzMS3DsWASntVnCbM0iF25sh9wcols6MrXKbpPMrO1SfqcHJAwxGaQIwzwErpRg56ZpyaiA7sfWqstlYI6JIHrak3RteeF9cw=w1280" alt="DISCIPLE">
             </div>
-            <div class="image-card">
-                <img src="https://i.pinimg.com/736x/e1/22/5e/e1225eb92aa9cbc7507da8a436209963.jpg" alt="VETEMENTS">
+            <div class="image-card" data-artist="vetements">
+                <img src="https://lh5.googleusercontent.com/k27iM968n-YWzZ8qmXu8WKNF063IMfY9QzzMS3DsWASntVnCbM0iF25sh9wcols6MrXKbpPMrO1SfqcHJAwxGaQIwzwErpRg56ZpyaiA7sfWqstlYI6JIHrak3RteeF9cw=w1280" alt="VETEMENTS">
             </div>
         </div>
     </section>
@@ -321,19 +399,38 @@
         <h2>Our Artists</h2>
         <p>Discover the talented artists signed with Blade Records, pushing the boundaries of music and creativity.</p>
         <div class="artist-buttons">
-            <button class="artist-button">SOULYOUMADETHIS</button>
-            <button class="artist-button">DISCIPLE</button>
-            <button class="artist-button">VETEMENTS</button>
+            <button class="artist-button" data-artist="soulyoumadethis">SOULYOUMADETHIS</button>
+            <button class="artist-button" data-artist="disciple">DISCIPLE</button>
+            <button class="artist-button" data-artist="vetements">VETEMENTS</button>
+        </div>
+    </section>
+
+    <section id="producers" class="content">
+        <h2>Our Producers</h2>
+        <p>Meet the visionary producers behind Blade Records, crafting groundbreaking sounds that define the future of music.</p>
+        <div class="producer-buttons">
+            <button class="producer-button" data-producer="producer1">R3DD</button>
+            <button class="producer-button" data-producer="producer2">SHRUVADUB</button>
+            <button class="producer-button" data-producer="producer3">JATEM</button>
         </div>
     </section>
 
     <section id="contact" class="content">
         <h2>Contact Us</h2>
-        <p>Got questions? Want to collaborate? Reach out to Blade Records at info@bladerecords.com.</p>
+        <p>Got questions? Want to collaborate? Reach out to Blade Records at bladerecords.inquiries@gmail.com.</p>
     </section>
 
     <div class="footer">
-       2025 Blade Records 
+        2025 Blade Records
+    </div>
+
+    <!-- Modal -->
+    <div class="modal" id="artistModal">
+        <div class="modal-content">
+            <span class="close-btn" id="closeModal">×</span>
+            <h3 id="modalTitle"></h3>
+            <p id="modalDescription"></p>
+        </div>
     </div>
 
     <script>
@@ -348,6 +445,88 @@
                     behavior: 'smooth'
                 });
             });
+        });
+
+        // Artist data
+        const artistData = {
+            soulyoumadethis: {
+                name: "SOULYOUMADETHIS",
+                description: "SOULYOUMADETHIS is a vocalist and producer, best known for his contributions to Project YVL he is also the founder of Blade Records. "
+            },
+            disciple: {
+                name: "DISCIPLE",
+                description: "DISCIPLE is a distinguished vocalist and producer, widely recognized for his exceptional remastering work and his role as co-owner of Blade Records."
+            },
+            vetements: {
+                name: "VETEMENTS",
+                description: " "
+            }
+        };
+
+        // Producer data
+        const producerData = {
+            producer1: {
+                name: "R3DD",
+                description: "R3DD is best known for his high-quality Yeat remixes, showcasing his expertise in music production."
+            },
+            producer2: {
+                name: "SHRUVADUB",
+                description: "SHRUVADUB is widely recognized for his exceptional production skills, particularly his signature heavy 808 sound."
+            },
+            producer3: {
+                name: "JATEM",
+                description: "JATEM is highly regarded for his skillful production of Cardo-style beats, demonstrating his versatility and expertise in music production."
+            }
+        };
+
+        // Modal functionality
+        const modal = document.getElementById('artistModal');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalDescription = document.getElementById('modalDescription');
+        const closeModal = document.getElementById('closeModal');
+
+        // Function to show modal
+        function showModal(data, key) {
+            const person = data[key];
+            modalTitle.textContent = person.name;
+            modalDescription.textContent = person.description;
+            modal.style.display = 'flex';
+        }
+
+        // Image click event (Artists)
+        document.querySelectorAll('.image-card').forEach(card => {
+            card.addEventListener('click', function() {
+                const artistKey = this.getAttribute('data-artist');
+                showModal(artistData, artistKey);
+            });
+        });
+
+        // Artist button click event
+        document.querySelectorAll('.artist-button').forEach(button => {
+            button.addEventListener('click', function() {
+                const artistKey = this.getAttribute('data-artist');
+                showModal(artistData, artistKey);
+            });
+        });
+
+        // Producer button click event
+        document.querySelectorAll('.producer-button').forEach(button => {
+            button.addEventListener('click', function() {
+                const producerKey = this.getAttribute('data-producer');
+                showModal(producerData, producerKey);
+            });
+        });
+
+        // Close modal
+        closeModal.addEventListener('click', function() {
+            modal.style.display = 'none';
+        });
+
+        // Close modal when clicking outside of it
+        window.addEventListener('click', function(event) {
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
         });
     </script>
 </body>
