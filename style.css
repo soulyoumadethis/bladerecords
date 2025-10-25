@@ -1,0 +1,341 @@
+/*
+ * 1. Global Reset, Variables & Typography
+ * 2. Layout: Header & Navigation (Hidden Mobile Menu)
+ * 3. Hero Section (Dramatic Opener)
+ * 4. Content Sections & Buttons (Brutalist Look)
+ * 5. Visual Grid (The Image Display)
+ * 6. Modal Styles (High-Contrast Overlay)
+ * 7. Utility & Media Queries
+ */
+
+/* 1. Global Reset, Variables & Typography */
+:root {
+    /* Colors */
+    --color-black: #050505;
+    --color-white: #f5f5f5;
+    --color-accent-red: #ff4d4d;
+    --color-grey-dark: #333333;
+
+    /* Fonts */
+    --font-heading: 'Montserrat', sans-serif;
+    --font-body: 'IBM Plex Mono', monospace;
+    --spacing-unit: 1.5rem;
+}
+
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    /* Optional: Disable tap highlights on mobile for cleaner feel */
+    -webkit-tap-highlight-color: transparent; 
+}
+
+html {
+    scroll-behavior: smooth;
+    font-size: 16px; /* Base for REM units */
+}
+
+body {
+    background-color: var(--color-black);
+    color: var(--color-white);
+    font-family: var(--font-body);
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+h1, h2, h3 {
+    font-family: var(--font-heading);
+    text-transform: uppercase;
+    color: var(--color-white);
+    letter-spacing: 0.1em;
+}
+
+a {
+    color: var(--color-white);
+    text-decoration: none;
+    transition: color 0.3s ease, border-color 0.3s ease;
+}
+
+/* 2. Layout: Header & Navigation */
+.site-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 3rem;
+    background: var(--color-black);
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    border-bottom: 1px solid var(--color-grey-dark);
+}
+
+.site-logo img {
+    height: 30px;
+}
+
+.nav-list {
+    list-style: none;
+    display: flex;
+    gap: 2rem;
+}
+
+.nav-link {
+    font-size: 0.9rem;
+    padding: 0.5rem 0;
+    position: relative;
+}
+
+.nav-link:hover {
+    color: var(--color-accent-red);
+}
+
+.nav-contact-btn {
+    border: 1px solid var(--color-white);
+    padding: 0.5rem 1rem;
+    transition: all 0.3s ease;
+}
+
+.nav-contact-btn:hover {
+    color: var(--color-black);
+    background-color: var(--color-accent-red);
+    border-color: var(--color-accent-red);
+}
+
+.menu-toggle { display: none; /* Hidden on desktop */ }
+
+
+/* 3. Hero Section (Dramatic Opener) */
+.hero-section {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-top: 100px;
+    text-align: center;
+    overflow: hidden; /* Contains children animations */
+}
+
+.hero-text-container {
+    padding-bottom: 4rem;
+}
+
+.hero-title {
+    font-size: 6rem;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+    /* Dramatic, slightly shaky animation */
+    animation: textFocus 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+.hero-subtitle {
+    font-family: var(--font-body);
+    font-size: 1.5rem;
+    letter-spacing: 0.5em;
+    color: var(--color-accent-red);
+    margin-bottom: 3rem;
+    animation: textFocus 2s ease-in-out forwards;
+}
+
+.hero-cta-button {
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 1rem;
+    color: var(--color-accent-red);
+    border: 2px solid var(--color-accent-red);
+    padding: 1rem 2.5rem;
+    transition: all 0.3s ease;
+    display: inline-block;
+    letter-spacing: 0.1em;
+}
+
+.hero-cta-button:hover {
+    background-color: var(--color-accent-red);
+    color: var(--color-black);
+}
+
+@keyframes textFocus {
+    0% { filter: blur(10px); opacity: 0; transform: translateY(20px); }
+    100% { filter: blur(0); opacity: 1; transform: translateY(0); }
+}
+
+/* 4. Content Sections & Buttons */
+.content-section {
+    padding: 6rem 3rem;
+    text-align: center;
+    border-top: 1px solid var(--color-grey-dark);
+}
+
+.section-title {
+    font-size: 4rem;
+    margin-bottom: 0.5rem;
+    color: var(--color-accent-red);
+}
+
+.section-tagline {
+    font-family: var(--font-body);
+    font-size: 1.1rem;
+    color: var(--color-white);
+    margin-bottom: 4rem;
+    letter-spacing: 0.2em;
+}
+
+.button-matrix {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.artist-tag-btn, .producer-tag-btn {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    padding: 1rem 2rem;
+    border: 2px solid var(--color-white);
+    background: transparent;
+    color: var(--color-white);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    flex-grow: 1;
+    min-width: 250px;
+}
+
+.artist-tag-btn:hover, .producer-tag-btn:hover {
+    background-color: var(--color-accent-red);
+    border-color: var(--color-accent-red);
+    color: var(--color-black);
+    transform: translateY(-5px);
+    box-shadow: 0 5px 20px rgba(255, 77, 77, 0.4);
+}
+
+.secondary-btn {
+    border-color: var(--color-grey-dark);
+    color: var(--color-grey-dark);
+}
+
+.secondary-btn:hover {
+    border-color: var(--color-accent-red);
+    color: var(--color-black);
+}
+
+.contact-section {
+    padding-bottom: 10rem;
+}
+
+.contact-text {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    letter-spacing: 0.1em;
+}
+
+.contact-link {
+    color: var(--color-accent-red);
+    border-bottom: 1px solid var(--color-accent-red);
+    padding-bottom: 3px;
+}
+
+.contact-link:hover {
+    color: var(--color-white);
+    border-color: var(--color-white);
+}
+
+/* 5. Visual Grid (The Image Display) */
+.visual-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    width: 80%;
+    margin: 0 auto 5rem;
+}
+
+.grid-item {
+    position: relative;
+    overflow: hidden;
+    height: 400px;
+    background: var(--color-grey-dark);
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transform: skewX(0); /* Start neutral */
+}
+
+.grid-item:nth-child(even) {
+    transform: skewX(-2deg); /* Subtle angle */
+}
+.grid-item:nth-child(odd) {
+    transform: skewX(2deg);
+}
+
+
+.grid-item:hover {
+    transform: skewX(0) scale(1.05);
+    box-shadow: 0 0 30px rgba(255, 77, 77, 0.5);
+    z-index: 10;
+}
+
+.grid-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: grayscale(80%) brightness(0.6);
+    transition: filter 0.5s ease;
+}
+
+.grid-item:hover img {
+    filter: grayscale(0%) brightness(1);
+}
+
+.grid-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    padding: 1rem;
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 1.1rem;
+    background: rgba(0, 0, 0, 0.7);
+    color: var(--color-accent-red);
+    width: 100%;
+    text-align: center;
+    transform: translateY(100%);
+    transition: transform 0.3s ease;
+}
+
+.grid-item:hover .grid-overlay {
+    transform: translateY(0);
+}
+
+/* Footer */
+.site-footer {
+    padding: 1.5rem 3rem;
+    text-align: right;
+    font-family: var(--font-body);
+    font-size: 0.8rem;
+    color: var(--color-grey-dark);
+    border-top: 1px solid var(--color-grey-dark);
+}
+
+/* 6. Modal Styles */
+.person-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.95);
+    z-index: 2000;
+    place-items: center;
+}
+
+.person-modal.is-visible {
+    display: grid;
+}
+
+.modal-content-wrapper
